@@ -9,8 +9,9 @@
 <nav th:replace="layouts :: nav"></nav>
 <div class="container">
     <h3>Projects</h3>
-    <table class="table table-bordered table-striped table-dark">
-        <thead>
+    <a type="button" class="btn btn-primary m-3" th:href="@{/projects/new}">Create new project</a>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
         <tr>
             <th scope="col">Project</th>
             <th scope="col">Stage</th>

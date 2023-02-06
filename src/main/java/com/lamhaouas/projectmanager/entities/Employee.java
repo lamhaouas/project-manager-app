@@ -1,9 +1,8 @@
 package com.lamhaouas.projectmanager.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Employee {
@@ -14,6 +13,22 @@ public class Employee {
     private String firstName;
     private String lastName;
     private String email;
+
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST,CascadeType.DETACH, CascadeType.REFRESH},
+            fetch = FetchType.LAZY)
+    @JoinTable(name = "project_employee",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name ="project_id" ))
+    private List <Project> projects;
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
+    }
+
     public Employee(){
 
     }
