@@ -2,6 +2,7 @@ package com.lamhaouas.projectmanager.controllers;
 
 import com.lamhaouas.projectmanager.dao.EmployeeRepo;
 import com.lamhaouas.projectmanager.dao.ProjectRepo;
+import com.lamhaouas.projectmanager.dto.EmployeeProject;
 import com.lamhaouas.projectmanager.entities.Employee;
 import com.lamhaouas.projectmanager.entities.Project;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,13 @@ public class HomeController {
     EmployeeRepo empRepo;
     @GetMapping("/")
     public String displayHome(Model model){
+
         List<Project> projects = proRepo.findAll();
         model.addAttribute("projects", projects);
-       List<Employee> employees = empRepo.findAll();
-       model.addAttribute("employees", employees);
+
+
+       List<EmployeeProject> employeesProjectCount = empRepo.employeeProjects();
+       model.addAttribute("employeesListProjectsCnt", employeesProjectCount);
         return "home";
     }
 }
