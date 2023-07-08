@@ -1,19 +1,34 @@
-const ctx = document.getElementById('pie-chart');
-new Chart(ctx, {
+var chartDataStr = decodeHtml(chartData);
+var chartJsonArray = JSON.parse(chartDataStr);
+
+var arrayLength =  chartJsonArray.length;
+var numericData = [];
+var labelData = [];
+
+for (var i=0; i < arrayLength; i++){
+    numericData[i] = chartJsonArray[i].val;
+    labelData[i]= chartJsonArray[i].label;
+}
+//For a pie chart
+new Chart(document.getElementById("myPieChart"), {
     type: 'pie',
     data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1
-      }]
+        labels: labelData,
+        datasets:[{
+            label: 'My data set',
+            backgroundColor:["#f72585","#7209b7","#b5179e"],
+            data: numericData
+        }]
     },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
+    options :{
+        title: {
+            display: true,
+            text: 'Project Status'}
     }
-  });
+});
+
+function decodeHtml(html){
+    var text = document.createElement("textarea");
+    text.innerHTML = html;
+    return text.value;
+}
